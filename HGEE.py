@@ -19,7 +19,7 @@ class MainWindow(Gtk.Window):
         self.set_default_size(700, 500)
         self.set_position(1)
 
-        self.m_task_bar_image = GdkPixbuf.Pixbuf.new_from_file('../Resources/HGE-Logo64x64.png')
+        self.m_task_bar_image = GdkPixbuf.Pixbuf.new_from_file('resources/HGE-Logo64x64.png')
         self.set_default_icon(self.m_task_bar_image)
 
         self.m_tray_icon = Gtk.StatusIcon.new_from_pixbuf(self.m_task_bar_image)
@@ -137,9 +137,9 @@ class MainWindow(Gtk.Window):
 
 if __name__ == "__main__":
     splash = Gtk.Window()
-    splash.set_default_icon(GdkPixbuf.Pixbuf.new_from_file('../Resources/HGE-Logo64x64.png'))
+    splash.set_default_icon(GdkPixbuf.Pixbuf.new_from_file('resources/HGE-Logo64x64.png'))
     image = Gtk.Image()
-    image.set_from_file('../Resources/HGE-Splash-0.0.1.jpg')
+    image.set_from_file('resources/HGE-Splash-0.0.1.jpg')
     splash.add(image)
     splash.set_decorated(False)
     splash.set_position(1)

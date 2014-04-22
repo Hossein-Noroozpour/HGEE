@@ -1,11 +1,11 @@
 #!/usr/bin/python3.3
 # coding=utf-8
 """
-Module for fundamental math operations.
+Module for fundamental math3d operations.
 """
 __author__ = 'Hossein Noroozpour Thany Abady'
 import numpy
-import math
+import math3d
 
 
 class Math():
@@ -22,7 +22,7 @@ class Math():
         :param vector:
         """
         data = numpy.array(vector, dtype=numpy.float32, copy=True)
-        data /= math.sqrt(numpy.dot(data, data))
+        data /= math3d.sqrt(numpy.dot(data, data))
         return data
 
     @staticmethod
@@ -49,8 +49,8 @@ class Math():
         :param direction:
         :return:
         """
-        s = math.sin(angle)
-        c = math.cos(angle)
+        s = math3d.sin(angle)
+        c = math3d.cos(angle)
         direction = Math.normalize(direction[:3])
         r = numpy.diag([c, c, c])
         r += numpy.outer(direction, direction) * (1.0 - c)
@@ -82,3 +82,15 @@ class Math():
                              [0.0, near/height, 0.0, 0.0],
                              [0.0, 0.0, (far + near)/(near - far), (2.0 * far * near) / (near - far)],
                              [0.0, 0.0, -1.0, 0.0]])
+
+    @staticmethod
+    def vec4f(x=0., y=0., z=0., w=1.):
+        """
+        Create new vector.
+        :param x: X component
+        :param y: Y component
+        :param z: Z component
+        :param w: W component
+        :return: vector4f
+        """
+        return numpy.array([x, y, z, w], numpy.float32)
