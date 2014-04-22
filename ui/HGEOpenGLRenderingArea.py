@@ -14,6 +14,7 @@ from ctypes import c_int
 from ctypes import byref
 import Xlib
 from Xlib.display import Display
+import ctypes
 from gi.repository import GdkX11
 
 
@@ -25,7 +26,7 @@ class OpenGLRenderingArea:
         xlib = cdll.LoadLibrary('libX11.so')
         xlib.XOpenDisplay.argtypes = [c_char_p]
         xlib.XOpenDisplay.restype = POINTER(struct__XDisplay)
-        self.xdisplay = xlib.XOpenDisplay("")
+        self.xdisplay = xlib.XOpenDisplay((ctypes.c_char * 1)(*[0]))
         display = Xlib.display.Display()
         attrs = [GLX.GLX_RGBA, True,
                  GLX.GLX_RED_SIZE, 1,

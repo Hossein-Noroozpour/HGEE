@@ -1,7 +1,7 @@
 __author__ = 'Hossein Noroozpour'
 from gi.repository import Gtk
-from HGEAddWindow import AddWindow
-from HGETerrainWindow import TerrainWindow
+from ui.HGEAddWindow import AddWindow
+from ui.HGETerrainWindow import TerrainWindow
 
 
 class ToolBar(Gtk.ScrolledWindow):

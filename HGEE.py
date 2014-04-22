@@ -1,3 +1,7 @@
+# coding=utf-8
+"""
+Main module for HGEE (Hulixerian Game Engine Editor)
+"""
 __author__ = """Hossein Noroozpour"""
 from ui.HGEOpenGLRenderingArea import OpenGLRenderingArea
 from gi.repository import Gtk
@@ -7,7 +11,6 @@ from gi.repository import GLib
 from ui.HGESideTab import SideTab
 from ui.HGEToolBar import ToolBar
 from core.HGEApplication import Application
-
 
 
 class MainWindow(Gtk.Window):
@@ -113,6 +116,9 @@ class MainWindow(Gtk.Window):
         self.m_render_device = None
 
     def initialize_render_area(self):
+        """
+        Initialize render area.
+        """
         self.m_render_area_initialized = True
         self.m_render_device = OpenGLRenderingArea(self.m_render_area.get_window())
         self.m_render_device.set_application(Application())
@@ -120,7 +126,10 @@ class MainWindow(Gtk.Window):
         self.m_render_timeout = GLib.timeout_add(18, self.m_render_device.render)
 
     def render_area_on_configure_event(self, widget, event):
-        """Configuring Render Area"""
+        """Configuring Render Area
+        :param event:
+        :param widget:
+        """
         if self.m_render_area_initialized:
             self.m_render_device.set_size(event.width, event.height)
         else:
@@ -128,6 +137,11 @@ class MainWindow(Gtk.Window):
         return True
 
     def render_area_on_draw(self, widget, context):
+        """
+        :param widget:
+        :param context:
+        :return:
+        """
         if self.m_render_area_initialized:
             self.m_render_device.render()
         else:
@@ -146,6 +160,9 @@ if __name__ == "__main__":
     splash.show_all()
 
     def after_splash():
+        """
+        :return:
+        """
         win = MainWindow()
         win.connect("delete-event", Gtk.main_quit)
         win.show_all()

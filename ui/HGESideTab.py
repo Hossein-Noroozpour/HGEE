@@ -4,7 +4,7 @@ from gi.repository import Gtk
 from gi.repository import Gdk
 from gi.repository import GdkPixbuf
 from gi.repository import GLib
-from HGEProfilerWindow import ProfilerWindow
+from ui.HGEProfilerWindow import ProfilerWindow
 
 class SideTab(Gtk.Notebook):
     """Side Tab in main window"""

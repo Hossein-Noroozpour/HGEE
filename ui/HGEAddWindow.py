@@ -1,7 +1,7 @@
 __author__ = 'Hossein Noroozpour'
 import gc
 from gi.repository import Gtk
-from utility.HGEColladaConverter import ColladaToHGEActors
+from utility.HGEColladaImporter import collada_importer
 
 
 class AddWindow(Gtk.Window):
