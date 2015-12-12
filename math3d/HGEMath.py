@@ -5,10 +5,10 @@ Module for fundamental math3d operations.
 """
 __author__ = 'Hossein Noroozpour Thany Abady'
 import numpy
-import math3d
+import math
 
 
-class Math():
+class Math:
     """
     Math class for game engine.
     """
@@ -22,7 +22,7 @@ class Math():
         :param vector:
         """
         data = numpy.array(vector, dtype=numpy.float32, copy=True)
-        data /= math3d.sqrt(numpy.dot(data, data))
+        data /= math.sqrt(numpy.dot(data, data))
         return data
 
     @staticmethod
@@ -49,14 +49,13 @@ class Math():
         :param direction:
         :return:
         """
-        s = math3d.sin(angle)
-        c = math3d.cos(angle)
+        s = math.sin(angle)
+        c = math.cos(angle)
         direction = Math.normalize(direction[:3])
         r = numpy.diag([c, c, c])
         r += numpy.outer(direction, direction) * (1.0 - c)
         direction *= s
-        r += numpy.array([[0.0, -direction[2], direction[1]], [direction[2], 0.0, -direction[0]], [-direction[1],
-                                                                                                   direction[0], 0.0]])
+        r += numpy.array([[0.0, -direction[2], direction[1]], [direction[2], 0.0, -direction[0]], [-direction[1], direction[0], 0.0]])
         m = numpy.identity(4)
         m[:3, :3] = r
         return m
@@ -78,10 +77,14 @@ class Math():
         :param height:
         :return:
         """
-        return numpy.matrix([[near/width, 0.0, 0.0, 0.0],
-                             [0.0, near/height, 0.0, 0.0],
-                             [0.0, 0.0, (far + near)/(near - far), (2.0 * far * near) / (near - far)],
-                             [0.0, 0.0, -1.0, 0.0]])
+        return numpy.matrix(
+            [
+                [near / width, 0.0, 0.0, 0.0],
+                [0.0, near / height, 0.0, 0.0],
+                [0.0, 0.0, (far + near) / (near - far), (2.0 * far * near) / (near - far)],
+                [0.0, 0.0, -1.0, 0.0]
+            ]
+        )
 
     @staticmethod
     def vec4f(x=0., y=0., z=0., w=1.):

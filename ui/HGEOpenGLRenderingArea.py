@@ -12,7 +12,6 @@ from ctypes import c_char_p
 from ctypes import POINTER
 from ctypes import c_int
 from ctypes import byref
-import Xlib
 from Xlib.display import Display
 import ctypes
 from gi.repository import GdkX11
@@ -27,13 +26,15 @@ class OpenGLRenderingArea:
         xlib.XOpenDisplay.argtypes = [c_char_p]
         xlib.XOpenDisplay.restype = POINTER(struct__XDisplay)
         self.xdisplay = xlib.XOpenDisplay((ctypes.c_char * 1)(*[0]))
-        display = Xlib.display.Display()
-        attrs = [GLX.GLX_RGBA, True,
-                 GLX.GLX_RED_SIZE, 1,
-                 GLX.GLX_GREEN_SIZE, 1,
-                 GLX.GLX_BLUE_SIZE, 1,
-                 GLX.GLX_DOUBLEBUFFER, 0,
-                 0, 0]
+        display = Display()
+        attrs = [
+            GLX.GLX_RGBA, True,
+            GLX.GLX_RED_SIZE, 1,
+            GLX.GLX_GREEN_SIZE, 1,
+            GLX.GLX_BLUE_SIZE, 1,
+            GLX.GLX_DOUBLEBUFFER, 0,
+            0, 0
+        ]
         width = 200
         height = 200
         cattrs = (c_int * len(attrs))(*attrs)
@@ -52,7 +53,7 @@ class OpenGLRenderingArea:
         """Must be called each frame"""
         if not GLX.glXMakeCurrent(self.xdisplay, self.x_window_id, self.context):
             print("failed")
-        GL.glClear(GL.GL_COLOR_BUFFER_BIT)
+        GL.glClear(GL.GL_COLOR_BUFFER_BIT | GL.GL_DEPTH_BUFFER_BIT)
         #todo
         GL.glBegin(GL.GL_TRIANGLES)
         GL.glIndexi(0)

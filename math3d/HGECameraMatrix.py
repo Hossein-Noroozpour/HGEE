@@ -8,7 +8,7 @@ from math3d.HGEMath import Math
 import ctypes
 
 
-class CameraMatrix():
+class CameraMatrix:
     """
     Class for camera matrix handling.
     """

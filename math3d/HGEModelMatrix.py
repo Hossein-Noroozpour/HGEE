@@ -8,7 +8,7 @@ from math3d.HGEMath import Math
 import ctypes
 
 
-class ModelMatrix():
+class ModelMatrix:
     """
     Class for model matrix handling.
     """

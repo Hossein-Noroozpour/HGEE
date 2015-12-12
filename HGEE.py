@@ -9,7 +9,6 @@ from gi.repository import Gdk
 from gi.repository import GdkPixbuf
 from gi.repository import GLib
 from ui.HGESideTab import SideTab
-from ui.HGEToolBar import ToolBar
 from core.HGEApplication import Application
 
 
@@ -21,12 +20,6 @@ class MainWindow(Gtk.Window):
 
         self.set_default_size(700, 500)
         self.set_position(1)
-
-        self.m_task_bar_image = GdkPixbuf.Pixbuf.new_from_file('resources/HGE-Logo64x64.png')
-        self.set_default_icon(self.m_task_bar_image)
-
-        self.m_tray_icon = Gtk.StatusIcon.new_from_pixbuf(self.m_task_bar_image)
-        self.m_tray_icon.set_visible(True)
 
         self.m_menu_item_file = Gtk.MenuItem()
         self.m_menu_item_file.set_label("_File")
@@ -74,8 +67,6 @@ class MainWindow(Gtk.Window):
         self.m_menu_bar.append(self.m_menu_item_edit)
         self.m_menu_bar.append(self.m_menu_item_help)
 
-        self.m_tool_bar = ToolBar()
-
         self.m_status_bar = Gtk.Statusbar()
 
         self.m_render_area = Gtk.DrawingArea()
@@ -109,9 +100,8 @@ class MainWindow(Gtk.Window):
         self.m_grid.set_vexpand(True)
         self.m_grid.set_hexpand(True)
         self.m_grid.attach(self.m_menu_bar, 0, 0, 1, 1)
-        self.m_grid.attach(self.m_tool_bar, 0, 1, 1, 1)
-        self.m_grid.attach(self.m_pane_main, 0, 2, 1, 1)
-        self.m_grid.attach(self.m_status_bar, 0, 3, 1, 1)
+        self.m_grid.attach(self.m_pane_main, 0, 1, 1, 1)
+        self.m_grid.attach(self.m_status_bar, 0, 2, 1, 1)
         self.m_render_timeout = None
         self.m_render_device = None
 
@@ -150,24 +140,7 @@ class MainWindow(Gtk.Window):
 
 
 if __name__ == "__main__":
-    splash = Gtk.Window()
-    splash.set_default_icon(GdkPixbuf.Pixbuf.new_from_file('resources/HGE-Logo64x64.png'))
-    image = Gtk.Image()
-    image.set_from_file('resources/HGE-Splash-0.0.1.jpg')
-    splash.add(image)
-    splash.set_decorated(False)
-    splash.set_position(1)
-    splash.show_all()
-
-    def after_splash():
-        """
-        :return:
-        """
-        win = MainWindow()
-        win.connect("delete-event", Gtk.main_quit)
-        win.show_all()
-        splash.destroy()
-        return False
-
-    GLib.timeout_add(2000, after_splash)
+    win = MainWindow()
+    win.connect("delete-event", Gtk.main_quit)
+    win.show_all()
     Gtk.main()
